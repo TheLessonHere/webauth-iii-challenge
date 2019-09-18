@@ -35,7 +35,7 @@ router.post('/login', (req, res) => {
           token
         });
       } else {
-        res.status(401).json({ message: 'Invalid Credentials' });
+        res.status(401).json({ message: 'You shall not pass!' });
       }
     })
     .catch(error => {
@@ -46,9 +46,10 @@ router.post('/login', (req, res) => {
 // register endpoint
 
 router.post('/register', (req, res) => {
-  let user = req.body;
+  const user = req.body;
   const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
   user.password = hash;
+  console.log(user)
 
   db.add(user)
     .then(saved => {
